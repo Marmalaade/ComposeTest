@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ComposeTest</string>
     <string name="load_data">Click to load</string>
+    <string name="tittle_text">Выберите интересующее вас направление или воспользуйтесь поиском</string>
 </resources>

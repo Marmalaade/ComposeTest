@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 data class Colors(
     val primaryBackground: Color,
     val cardBackground: Color,
+    val tittleColor: Color,
     val mainTextColor: Color,
     val iconColor: Color,
     val blueColor: Color,
@@ -21,6 +22,7 @@ data class Colors(
 val colorPalette = Colors(
     primaryBackground = Color(0xFF333333),
     cardBackground = Color(0xFFD9D9D9),
+    tittleColor = Color.White,
     mainTextColor = Color(0xFF1E1E1E),
     iconColor = Color(0xFF000000),
     blueColor = Color(0xFF0074D9),
