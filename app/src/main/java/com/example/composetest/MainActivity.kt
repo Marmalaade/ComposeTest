@@ -5,11 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,8 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
                     Column {
                         TopText()
                         TwoBoxRow()
+                        MainGrid()
                     }
 
                 }
@@ -69,7 +71,6 @@ fun TopText() {
 
 @Composable
 fun TwoBoxRow() {
-    val textState = remember { mutableStateOf("") }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,23 +79,8 @@ fun TwoBoxRow() {
         verticalAlignment = Alignment.CenterVertically
 
     ) {
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .width(305.dp)
-                .height(30.dp)
-                .background(AppTheme.colors.cardBackground)
-                .padding(4.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TextFieldWithIcon()
-            }
-        }
 
+        SearchTextField()
         Spacer(modifier = Modifier.width(8.dp))
 
         Box(
@@ -115,20 +101,55 @@ fun TwoBoxRow() {
 }
 
 @Composable
-fun TextFieldWithIcon() {
-    val textState = remember { mutableStateOf(("")) }
-    return OutlinedTextField(
+fun MainGrid() {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(163.dp),
+        contentPadding = PaddingValues(
+            start = 16.dp,
+            end = 16.dp,
+            top = 16.dp,
+            bottom = 16.dp
+        ),
+        content = {
+            items(8) { i ->
+                Card(
+                    modifier = Modifier
+                        .width(163.dp)
+                        .height(163.dp)
+                        .padding(8.dp),
+                    backgroundColor = AppTheme.colors.cardBackground,
+                    elevation = 8.dp,
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(text = "Card $i")
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun SearchTextField() {
+    val textState = remember {
+        mutableStateOf("")
+    }
+    TextField(
+        modifier = Modifier
+            .height(30.dp)
+            .width(305.dp)
+            .background(AppTheme.colors.cardBackground, shape = RoundedCornerShape(8.dp)),
         value = textState.value,
-        leadingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.searchicon),
-                contentDescription = "searchIcon"
-            )
-        },
         onValueChange = {
             textState.value = it
         },
-        placeholder = { Text(text = stringResource(id = R.string.text_field)) },
+        textStyle = TextStyle(color = AppTheme.colors.mainTextColor, fontSize = 10.sp),
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = R.drawable.searchicon),
+                contentDescription = "search icon",
+                tint = AppTheme.colors.mainTextColor
+            )
+        }
     )
 }
 
