@@ -12,7 +12,7 @@ val lato = FontFamily(Font(R.font.latoblack))
 
 val Typography = Typography(
     h1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = lato,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
